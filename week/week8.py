@@ -2,14 +2,18 @@ def initialize():
 	data = []
 	try:
 		f = open("records.txt", "r")	
-		money = int(f.readline())
-		read_data = f.readlines()
-		for x in read_data:
-			data.append([x.split()[0], int(x.split()[1])])
-		f.close()
-		print("Welcome bak!\n")
+		try:
+			money = int(f.readline())
+			read_data = f.readlines()
+			for x in read_data:
+				data.append([x.split()[0], int(x.split()[1])])
+			f.close()
+			print("Welcome bak!\n")
+		except:
+			print("Invalid format in records.txt. Deleting the contents. ")
 	except:
-		print("Invalid format in records.txt. Deleting the contents. ")
+		print("its the first time u use this program!")
+
 	try:
 		money
 	except:
@@ -56,11 +60,11 @@ def delete():
 		print("invalid format, fail to delete a record ")
 
 def exit():
-	f = open("records.txt", "w")
 	data_write = str(money) + "\n"
 	for x in data:
 		data_write += (x[0] + " " + str(x[1]) + "\n")
-	f.write(data_write)
+	with open("records.txt", "w") as f:
+		f.write(data_write)
 	print("program end")
 
 data, money = initialize()
